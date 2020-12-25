@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "User",
+  "namespace": "br.com.invillia.lyon.userapi.events",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    }
+  ]
+}
