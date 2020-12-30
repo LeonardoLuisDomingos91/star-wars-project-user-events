@@ -1,20 +1,30 @@
 package br.com.invillia.lyon.userevents.domain;
 
-import org.springframework.stereotype.Component;
+import lombok.Getter;
+import lombok.Setter;
 
-@Component
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.util.Date;
+
+@Getter
+@Setter
+@Entity
 public class User {
 
-    private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public User() {
-    }
+    private String name;
 
-    public long getId() {
-        return id;
-    }
+    private String gender;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    private String height;
+
+    private Date created;
+
+    private Date edited;
 }

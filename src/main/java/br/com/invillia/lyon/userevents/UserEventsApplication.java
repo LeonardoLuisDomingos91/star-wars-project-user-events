@@ -6,9 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 
 @SpringBootApplication
-@EnableBinding({
-		UserEventsChannel.class
-})
+@EnableBinding(UserEventsChannel.class)
 public class UserEventsApplication {
 
 	public static void main(String[] args) {

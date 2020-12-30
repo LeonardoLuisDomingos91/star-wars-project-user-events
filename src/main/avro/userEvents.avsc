@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "User",
+  "name": "UserEvent",
   "namespace": "br.com.invillia.lyon.userapi.events",
   "fields": [
     {
