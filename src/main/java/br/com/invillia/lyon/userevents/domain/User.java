@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-@Entity
+@Entity(name = "UserSave")
 public class User {
 
     @Id
