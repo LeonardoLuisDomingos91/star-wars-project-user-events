@@ -41,5 +41,53 @@ spring:
         avro:
           reader: true
 
+---
+
+spring:
+  profiles: test
+  custom:
+    api-url: http://localhost:8090/api/people/
+  datasource:
+    url: jdbc:postgresql://localhost:5432/star_wars_users
+    jdbc-url: ${spring.datasource.url}
+    driver-class-name: org.postgresql.Driver
+    platform: postgres
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: user-events
+  cloud:
+    stream:
+      default:
+        consumer:
+          use-native-encoding: true
+        producer:
+          use-native-encoding: true
+      bindings:
+        user-input:
+          destination: stream.users
+          group: ${spring.application.name}
+      default-binder: kafka
+      kafka:
+        binder:
+          configuration:
+            value:
+              deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+            key:
+              deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  kafka:
+    properties:
+      schema:
+        registry:
+          url: http://localhost:8081
+      specific:
+        avro:
+          reader: true
+
 
 
