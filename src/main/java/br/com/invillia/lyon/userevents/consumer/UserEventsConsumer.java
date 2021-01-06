@@ -1,6 +1,6 @@
 package br.com.invillia.lyon.userevents.consumer;
 
-import br.com.invillia.lyon.userapi.events.User;
+import br.com.invillia.lyon.userapi.events.UserEvent;
 import br.com.invillia.lyon.userevents.channel.UserEventsChannel;
 import br.com.invillia.lyon.userevents.service.SwapiService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +16,10 @@ public class UserEventsConsumer {
     private SwapiService swapiService;
 
     @StreamListener(UserEventsChannel.INPUT)
-    public void consumerUser(User userEvents) {
+    public void consumerUser(UserEvent userEvent) {
 
-        swapiService.findPerson(userEvents.getId());
+        swapiService.findPerson(userEvent.getId());
 
-        log.info("M=sendUser, I=logando o id consumido, String={}", userEvents.getId());
+        log.info("M=sendUser, I=logando o id consumido, String={}", userEvent.getId());
     }
 }
