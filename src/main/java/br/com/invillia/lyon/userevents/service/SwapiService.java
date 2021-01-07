@@ -1,7 +1,6 @@
 package br.com.invillia.lyon.userevents.service;
 
-import br.com.invillia.lyon.userevents.Repository.PersonRepository;
-import br.com.invillia.lyon.userevents.domain.User;
+import br.com.invillia.lyon.userevents.Repository.UserRepository;
 import br.com.invillia.lyon.userevents.response.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,9 @@ public class SwapiService {
     private RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
-    private PersonRepository personRepository;
+    private UserRepository userRepository;
 
-    public void findPerson(String id) {
+    public void findUser(String id) {
         String url = BASE_URL + id + "/";
         try {
             UserResponse userResponse = restTemplate
@@ -31,7 +30,6 @@ public class SwapiService {
 
             log.info("M=findPerson, I=acessando a api,");
 
-            //personRepository.save(user);
             userService.sendUpdate(userResponse, id);
         }catch (HttpClientErrorException h) {
             if(h.getStatusCode().equals("404")) log.info("personagem não encontrado");

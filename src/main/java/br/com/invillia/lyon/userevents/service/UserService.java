@@ -1,7 +1,6 @@
 package br.com.invillia.lyon.userevents.service;
 
-import br.com.invillia.lyon.userapi.events.UserEvent;
-import br.com.invillia.lyon.userevents.Repository.PersonRepository;
+import br.com.invillia.lyon.userevents.Repository.UserRepository;
 import br.com.invillia.lyon.userevents.domain.User;
 import br.com.invillia.lyon.userevents.mapper.UserMapper;
 import br.com.invillia.lyon.userevents.response.UserResponse;
@@ -9,15 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
 public class UserService {
 
     @Autowired
-    private PersonRepository personRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private UserMapper userMapper;
@@ -28,33 +26,29 @@ public class UserService {
     }
 
     public void saveUser(User user) {
-       Boolean check = searchAllUsersInTheBank(user.getId_user());
+        System.out.println("chegou");
+       Boolean check = getIdUser(user.getIdUser());
 
        if(check != true){
-           personRepository.save(user);
+           userRepository.save(user);
            log.info("M=saveUser, I=Usuario salvo");
        }else{
            log.info("M=saveUser, I=Usuario já existe");
        }
     }
 
-    public Boolean searchAllUsersInTheBank(long id) {
-        List<User> userList = new ArrayList<>();
-        userList = personRepository.findAll();
-
-        return idempotency(userList, id);
+    public Boolean getIdUser(Long id) {
+        System.out.println("getIdUser");
+       Optional<User> optionalUser = userRepository.findByIdUser(id);
+        return idempotency(optionalUser);
     }
 
-    public Boolean idempotency(List<User> list, long id) {
-        for (User user: list) {
-
-            if (user.getId_user() != id){
-                continue;
-            }else{
-                return true;
-            }
-
+    public Boolean idempotency(Optional user) {
+        System.out.println("idempotency");
+        if(user.isPresent()){
+            return true;
+        }else{
+            return false;
         }
-             return false;
     }
 }

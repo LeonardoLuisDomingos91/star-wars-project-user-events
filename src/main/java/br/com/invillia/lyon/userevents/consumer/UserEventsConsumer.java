@@ -16,10 +16,10 @@ public class UserEventsConsumer {
     private SwapiService swapiService;
 
     @StreamListener(UserEventsChannel.INPUT)
-    public void consumerUser(UserEvent userEvent) {
+    public void consumeUser(UserEvent userEvent) {
 
-        swapiService.findPerson(userEvent.getId());
+        swapiService.findUser(userEvent.getId());
 
-        log.info("M=sendUser, I=logando o id consumido, String={}", userEvent.getId());
+        log.info("M=consumeUser, I=logando o id consumido, String={}", userEvent.getId());
     }
 }

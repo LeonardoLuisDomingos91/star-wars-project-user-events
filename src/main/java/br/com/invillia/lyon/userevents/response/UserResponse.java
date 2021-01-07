@@ -8,7 +8,6 @@ import java.util.Date;
 
 @Getter
 @Setter
-@Component
 public class UserResponse {
 
     private String name;
