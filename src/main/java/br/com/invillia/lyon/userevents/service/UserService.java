@@ -26,7 +26,6 @@ public class UserService {
     }
 
     public void saveUser(User user) {
-        System.out.println("chegou");
        Boolean check = getIdUser(user.getIdUser());
 
        if(check != true){
@@ -38,13 +37,11 @@ public class UserService {
     }
 
     public Boolean getIdUser(Long id) {
-        System.out.println("getIdUser");
        Optional<User> optionalUser = userRepository.findByIdUser(id);
         return idempotency(optionalUser);
     }
 
     public Boolean idempotency(Optional user) {
-        System.out.println("idempotency");
         if(user.isPresent()){
             return true;
         }else{
