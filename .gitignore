@@ -1,6 +1,6 @@
 HELP.md
 .gradle
-java_pid11986.hprof
+*.java_pid11986.hprof
 build/
 full-stack/
 !gradle/wrapper/gradle-wrapper.jar

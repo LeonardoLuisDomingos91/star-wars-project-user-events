@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
-    public User updateUser(UserResponse userResponse, String id) {
+    public User settingValuesForUser(UserResponse userResponse, String id) {
         User user = new User();
 
         user.setIdUser(Long.parseLong(id));

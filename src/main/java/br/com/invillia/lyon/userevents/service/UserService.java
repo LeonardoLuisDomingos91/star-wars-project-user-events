@@ -21,7 +21,7 @@ public class UserService {
     private UserMapper userMapper;
 
     public void sendUpdate(UserResponse userResponse, String id) {
-        User user = userMapper.updateUser(userResponse, id);
+        User user = userMapper.settingValuesForUser(userResponse, id);
         saveUser(user);
     }
 
