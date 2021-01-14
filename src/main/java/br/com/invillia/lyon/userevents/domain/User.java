@@ -13,10 +13,10 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "id_user")
-    private long idUser;
+    private Long idUser;
 
     private String name;
 
