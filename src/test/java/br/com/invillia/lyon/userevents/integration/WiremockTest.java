@@ -1,6 +1,5 @@
 package br.com.invillia.lyon.userevents.integration;
 
-import br.com.invillia.lyon.userevents.service.SwapiService;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
