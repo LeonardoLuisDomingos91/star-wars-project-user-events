@@ -1,4 +1,4 @@
-package br.com.invillia.lyon.userevents.domain;
+package br.com.invillia.lyon.userevents.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +15,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "id_user")
-    private Long idUser;
+    @Column(name = "star_wars_id")
+    private Long starWarsId;
 
     private String name;
 

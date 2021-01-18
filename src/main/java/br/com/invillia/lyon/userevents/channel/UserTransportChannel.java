@@ -5,7 +5,7 @@ import org.springframework.messaging.SubscribableChannel;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface UserEventsChannel {
+public interface UserTransportChannel {
 
     String INPUT = "user-input";
 

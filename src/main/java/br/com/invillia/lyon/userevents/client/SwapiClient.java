@@ -1,6 +1,6 @@
 package br.com.invillia.lyon.userevents.client;
 
-import br.com.invillia.lyon.userevents.Repository.UserRepository;
+import br.com.invillia.lyon.userevents.repository.UserRepository;
 import br.com.invillia.lyon.userevents.response.UserResponse;
 import br.com.invillia.lyon.userevents.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,19 +18,17 @@ public class SwapiClient {
 
     public static String BASE_URL = "https://swapi.dev/api/people/";
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
     private UserRepository userRepository;
 
-    public UserResponse findUser(final String id) {
+    public UserResponse findUser(final Long id) {
         String url = BASE_URL + id + "/";
         UserResponse userResponse = new UserResponse();
         try {
              userResponse = restTemplate
                     .getForObject(url, UserResponse.class);
-
-            log.info("M=findPerson, I=acessando a api,");
 
         }catch (HttpClientErrorException h) {
             if(h.getStatusCode().equals("404")) log.info("personagem não encontrado");
