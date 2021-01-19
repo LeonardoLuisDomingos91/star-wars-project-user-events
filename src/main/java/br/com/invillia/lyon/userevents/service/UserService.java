@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Optional;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -20,18 +23,30 @@ public class UserService {
 
     private final SwapiClient swapiClient;
 
-    public void create(final Long id) {
-        System.out.println("Entrou");
-        if (userRepository.findByStarWarsId(id).isPresent()){
+    public void create(final UserResponse userResponse, Long id) {
+        Optional<User> optionalUser = userRepository.findByStarWarsId(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            User userUpdate = update(userResponse, user, id);
+            userRepository.save(userUpdate);
             log.info("M=create, I=Usuário atualizado, id={}", id );
             return;
         }
-
-        final UserResponse userResponse = swapiClient.findUser(id);
 
         final User user = userMapper.fromUserResponseToUser(userResponse, id);
 
         userRepository.save(user);
         log.info("M=create, I=Usuário salvo no banco, id={}", user.getStarWarsId());
+    }
+
+    private User update(final UserResponse userResponse, final User user, final Long id) {
+        final Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+
+        user.setStarWarsId(id);
+        user.setName(userResponse.getName());
+        user.setGender(userResponse.getGender());
+        user.setHeight(userResponse.getHeight());
+        user.setEdited(timestamp);
+        return user;
     }
 }
