@@ -32,6 +32,6 @@ public class UserService {
         final User user = userMapper.fromUserResponseToUser(userResponse, id);
 
         userRepository.save(user);
-        log.info("M=create, I=Usuário salvo, id={}", user.getStarWarsId());
+        log.info("M=create, I=Usuário salvo no banco, id={}", user.getStarWarsId());
     }
 }

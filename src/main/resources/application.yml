@@ -40,3 +40,6 @@ spring:
       specific:
         avro:
           reader: true
+
+
+
