@@ -9,7 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity(name = "UserSave")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,12 +1,12 @@
 package br.com.invillia.lyon.userevents.repository;
 
-import br.com.invillia.lyon.userevents.domain.entity.User;
+import br.com.invillia.lyon.userevents.domain.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    Optional<User> findByStarWarsId(final Long id);
+    Optional<UserEntity> findByStarWarsId(final Long id);
 
 }
