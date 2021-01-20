@@ -32,6 +32,35 @@ spring:
               deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
             key:
               deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+      rabbit:
+        bindings:
+          output:
+            producer:
+              bindingRoutingKey: "REGISTER-EMPLOYEE-NAME"
+              routingKeyExpression: '''PARA-FILA-1'''
+              exchangeType: direct
+              bindQueue: true
+          input:
+            consumer:
+              autoBindDlq: true
+              group: messageInputSubscriber
+              bindingRoutingKey: "REGISTER-EMPLOYEE-NAME"
+              bindQueue: true
+          bindings:
+            output:
+              destination: QUEUE-REGISTER-EMPLOYEE-NAME
+              producer:
+                requiredGroups: DESTINO
+            input:
+              destination: QUEUE-REGISTER-EMPLOYEE-NAME
+              group: DESTINO
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: kamisama123
+
   kafka:
     properties:
       schema:
@@ -40,6 +69,3 @@ spring:
       specific:
         avro:
           reader: true
-
-
-

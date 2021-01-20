@@ -2,8 +2,11 @@ package br.com.invillia.lyon.userevents.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -15,7 +18,7 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "star_wars_id")
+    @Column(name = "star_wars_id", nullable = false)
     private Long starWarsId;
 
     private String name;
@@ -24,7 +27,14 @@ public class UserEntity {
 
     private String height;
 
-    private Date created;
+    @CreationTimestamp
+    private LocalDateTime created;
 
-    private Date edited;
+    @UpdateTimestamp
+    private LocalDateTime edited;
+
+    @PreUpdate
+    public void preUpdate() {
+        this.edited = LocalDateTime.now();
+    }
 }

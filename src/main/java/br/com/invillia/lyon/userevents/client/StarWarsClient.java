@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Component
-public class SwapiClient {
+public class StarWarsClient {
 
     @Autowired
     private UserService userService;
@@ -23,8 +23,9 @@ public class SwapiClient {
     @Autowired
     private UserRepository userRepository;
 
-    public UserResponse findUser(final Long id) {
-        String url = BASE_URL + id + "/";
+    public UserResponse findUser(final Long starWarsId) {
+        log.info("M=findUser, I=bucando usuário na api, starWarsId{}", starWarsId);
+        String url = BASE_URL + starWarsId + "/";
         UserResponse userResponse = new UserResponse();
         try {
              userResponse = restTemplate
