@@ -1,4 +1,19 @@
 spring:
+  application:
+    name: user-events
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: kamisama123
+  kafka:
+    properties:
+      schema:
+        registry:
+          url: http://localhost:8081
+      specific:
+        avro:
+          reader: true
   datasource:
     url: jdbc:postgresql://localhost:5432/star_wars_users
     jdbc-url: ${spring.datasource.url}
@@ -11,35 +26,43 @@ spring:
     hibernate:
       ddl-auto: update
     properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
-  application:
-    name: user-events
   cloud:
     stream:
-      default:
-        consumer:
-          use-native-encoding: true
-        producer:
-          use-native-encoding: true
-      bindings:
-        user-input:
-          destination: stream.users
-          group: ${spring.application.name}
-      default-binder: kafka
       kafka:
         binder:
+          brokers: 0.0.0.0:9092
           configuration:
             value:
               deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
             key:
               deserializer: org.apache.kafka.common.serialization.StringDeserializer
-  kafka:
-    properties:
-      schema:
-        registry:
-          url: http://localhost:8081
-      specific:
-        avro:
-          reader: true
-
+      bindings:
+        simple-kafka-user-input:
+          destination: stream.users
+          group: ${spring.application.name}
+          binder: kafka
+        simple-rabbit-output:
+          destination: QUEUE-REGISTER-USER
+          producer:
+            requiredGroups: DESTINY
+          binder: rabbit
+        simple-rabbit-input:
+          destination: QUEUE-REGISTER-EMPLOYEE-NAME
+          group: DESTINY
+          binder: rabbit
+      rabbit:
+        bindings:
+          output:
+            producer:
+              bindingRoutingKey: "REGISTER-USER-NAME"
+              routingKeyExpression: '''TO-QUEUE-1'''
+              exchangeType: direct
+              bindQueue: true
+          input:
+            consumer:
+              autoBindDlq: true
+              group: messageInputSubscriber
+              bindingRoutingKey: "REGISTER-USER-NAME"
+              bindQueue: true
 
 

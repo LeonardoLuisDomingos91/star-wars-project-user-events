@@ -5,9 +5,9 @@ import org.springframework.messaging.SubscribableChannel;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface UserTransportChannel {
+public interface SimpleKafkaChannel {
 
-    String INPUT = "user-input";
+    String INPUT = "simple-kafka-user-input";
 
     @Input(INPUT)
     SubscribableChannel inputBoundUsers();
