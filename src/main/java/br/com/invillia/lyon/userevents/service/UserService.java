@@ -32,7 +32,7 @@ public class UserService {
         userEntity.setName(userResponse.getName());
         userEntity.setGender(userResponse.getGender());
         userEntity.setHeight(userResponse.getHeight());
-
+        userEntity.preUpdate();
         userRepository.save(userEntity);
         log.info("M=create, I=usuário atualizado, starWarsId={}", userEntity.getStarWarsId());
     }
